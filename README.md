@@ -4,19 +4,16 @@ Baidu Push 服务器端SDK Python版
 Python SDK总体介绍：
 将百度Push服务端的所有操作封装成一个类Channel，通过对该类的简单初始化，即可调用其内部的各种方法，使用百度Push服务。
 Channel提供的方法和服务端API对应，是对服务端REST API的封装，REST API请参考:http://developer.baidu.com/wiki/index.php?title=docs/cplat/push/api/list  
-使用前提:
-支持pycurl的python版本
 
 工具组成：
 Python SDK工具包主要由以下部分组成：
 	Channel.py -- Python_SDK 脚本，包含对外提供的所有接口
 	lib -- 使用到的一些基础公用文件
-	sample/sample.python -- 展示如何使用 Python_SDK 的 demo 文件
+	sample/sample.py -- 展示如何使用 Python_SDK 的 demo 文件
 
-SDK 依赖于以下组件：
-	pycurl
-	python
-
+SDK 依赖于以下python组件：
+	[pycurl](https://pypi.python.org/pypi/pycurl)
+	[ujson](https://pypi.python.org/pypi/ujson)
 
 一般规则
 	所有函数的参数和返回值中如果有中文，必须是UTF-8编码；

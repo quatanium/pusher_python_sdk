@@ -7,7 +7,7 @@ import urllib
 
 import hashlib
 
-import json
+from ujson import dumps, loads
 
 from lib.ChannelException import ChannelException
 
@@ -216,9 +216,9 @@ class Channel(object):
 
             arrArgs[Channel.PUSH_TYPE] = push_type
             if(isinstance(arrArgs[Channel.MESSAGES], list)):
-                arrArgs[Channel.MESSAGES] = json.dumps(arrArgs[Channel.MESSAGES])
+                arrArgs[Channel.MESSAGES] = dumps(arrArgs[Channel.MESSAGES])
             if(isinstance(arrArgs[Channel.MSG_KEYS], list)):
-                arrArgs[Channel.MSG_KEYS] = json.dumps(arrArgs[Channel.MSG_KEYS])
+                arrArgs[Channel.MSG_KEYS] = dumps(arrArgs[Channel.MSG_KEYS])
             return self._commonProcess(arrArgs)
 
         except ChannelException, e:
@@ -303,7 +303,7 @@ class Channel(object):
             arrArgs = self._mergeArgs([Channel.USER_ID, Channel.MSG_IDS], tmpArgs)
             arrArgs[Channel.METHOD] = 'delete_msg';
             if(isinstance(arrArgs[Channel.MSG_IDS], list)):
-                arrArgs[Channel.MSG_IDS] = json.dumps(arrArgs[Channel.MSG_IDS])
+                arrArgs[Channel.MSG_IDS] = dumps(arrArgs[Channel.MSG_IDS])
             return self._commonProcess(arrArgs)
         except ChannelException, e:
             self._channelExceptionHandler(e)
@@ -492,13 +492,13 @@ class Channel(object):
             raise ChannelException('base control returned None object',
             Channel.CHANNEL_SDK_SYS)
         if(ret.isOK()):
-            result = json.loads(ret.body)
+            result = loads(ret.body)
             if (result is None):
                 raise ChannelException(ret.body,
                     Channel.CHANNEL_SDK_HTTP_STATUS_OK_BUT_RESULT_ERROR)
             self._requestId = result['request_id']
             return result
-        result = json.loads(ret.body)
+        result = loads(ret.body)
         if(result is None):
             raise ChannelException('ret body:' + ret.body,
                 Channel.CHANNEL_SDK_HTTP_STATUS_ERROR_AND_RESULT_ERROR)
